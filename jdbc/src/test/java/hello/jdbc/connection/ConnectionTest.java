@@ -1,5 +1,6 @@
 package hello.jdbc.connection;
 
+import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -29,13 +30,25 @@ public class ConnectionTest {
     /**
      * ⭐️ Datasorce 사용
      * getConnection() : 커넥션을 얻을때 파라미터를 넘겨주지 않아도됨
-     * 
      */
     @Test
     public void dataSourceDriverManager() throws Exception {
         // DriverManagerDataSource - 항상 새로운 커넥션 획득
         DriverManagerDataSource dataSource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
         useDataSource(dataSource);
+    }
+
+    @Test
+    public void dataSourceConnectionPool() throws Exception {
+        HikariDataSource dataSource = new HikariDataSource();
+        dataSource.setJdbcUrl(URL);
+        dataSource.setUsername(USERNAME);
+        dataSource.setPassword(PASSWORD);
+        dataSource.setMaximumPoolSize(10);
+        dataSource.setPoolName("Jinyoung-pool");
+
+        useDataSource(dataSource);
+        Thread.sleep(1000);
 
     }
 
