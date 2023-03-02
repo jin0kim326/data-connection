@@ -18,7 +18,7 @@ public class DBConnectionUtil {
     public static Connection getConnection() {
         try {
             Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            connection.setSchema("jdbc-connection");
+            connection.setSchema(SCHEMA);
             log.info("get connection={}, class={}", connection, connection.getClass());
             //출력결과 : get connection=org.postgresql.jdbc.PgConnection@609db546, class=class org.postgresql.jdbc.PgConnection
             //PgConnection : postgresql 데이터베이스가 제공하는 드라이버 커넥션
